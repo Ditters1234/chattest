@@ -1,8 +1,5 @@
 var app = require('express')();
 var http = require('http').Server(app);
-var path = require('path');
-var url = require('url');
-var fs = require('fs');
 var io = require('socket.io')(http);
 var port = process.env.PORT || 8080;
 
@@ -10,12 +7,12 @@ var port = process.env.PORT || 8080;
 
  /* serves main page */
  app.get("/", function(req, res) {
-    res.sendfile('index.html')
+    res.sendFile(__dirname +'/public/index.html')
  });
  
  app.get(/^(.+)$/, function(req, res){ 
      console.log('static file request : ' + req.params);
-     res.sendfile( __dirname + req.params[0]); 
+     res.sendFile( __dirname + '/public/' + req.params[0]); 
  });
 
 io.on('connection', function(socket){
